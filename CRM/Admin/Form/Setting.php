@@ -152,6 +152,12 @@ class CRM_Admin_Form_Setting extends CRM_Core_Form {
         unset($params[$name]);
       }
     }
+
+    if (isset($params['customCSSMode'])) {
+      Civi::settings()->set('customCSSMode', $params['customCSSMode']);
+      unset($params['customCSSMode']);
+    }
+
     try {
       $settings = $this->getSettingsToSetByMetadata($params);
       civicrm_api3('setting', 'create', $settings);

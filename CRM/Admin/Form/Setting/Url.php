@@ -57,9 +57,23 @@ class CRM_Admin_Form_Setting_Url extends CRM_Admin_Form_Setting {
     // FIXME: verifySSL should use $_settings instead of manually adding fields
     $this->assign('verifySSL_description', $settingFields['values']['verifySSL']['description']);
 
+    $this->addRadio('customCSSMode', ts('Include mode for custom CSS'), array(
+      'always' => ts('always'),
+      'civicrm' => ts('all CiviCRM pages'),
+      'civicrm_no_public' => ts('all CiviCRM pages except public CiviCRM pages'),
+    ));
+
     $this->addFormRule(array('CRM_Admin_Form_Setting_Url', 'formRule'));
 
     parent::buildQuickForm();
+  }
+
+  public function setDefaultValues() {
+    $this->_defaults = parent::setDefaultValues();
+    $customCSSMode = Civi::settings()->get('customCSSMode');
+    $this->_defaults['customCSSMode'] = ($customCSSMode ? $customCSSMode : 'always');
+
+    return $this->_defaults;
   }
 
   /**

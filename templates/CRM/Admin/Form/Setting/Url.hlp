@@ -86,6 +86,14 @@
 <p>{ts}You can modify the look and feel of CiviCRM by adding your own stylesheet. For small to medium sized modifications, use your css file to override some of the styles in civicrm.css. Or if you need to make drastic changes, you can choose to disable civicrm.css completely.{/ts}</p>
 {/htxt}
 
+{htxt id='id-css_mode-title'}
+  {ts}Customizing CSS{/ts}
+{/htxt}
+{htxt id='id-css_mode'}
+<p>{ts}Select when to load custom CSS.{/ts}</p>
+{/htxt}
+
+
 {htxt id='id-url_vars'}
 {ts}URL Variables{/ts}
   <table>

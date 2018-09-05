@@ -647,8 +647,25 @@ class CRM_Core_Resources {
       // Load custom or core css
       $config = CRM_Core_Config::singleton();
       if (!empty($config->customCSSURL)) {
-        $customCSSURL = $this->addCacheCode($config->customCSSURL);
-        $this->addStyleUrl($customCSSURL, 99, $region);
+        $customCSSMode = Civi::settings()->get('customCSSMode');
+        $currentPath = explode('/', CRM_Utils_System::currentPath());
+        $is_civicrm = isset($currentPath[0]) && $currentPath[0] == 'civicrm';
+        if ($is_civicrm) {
+          $args = explode('?', $_GET['q']);
+          $path = $args[0];
+          $item = CRM_Core_Menu::get($path);
+          $is_public_civicrm = CRM_Utils_Array::value('is_public', $item);
+        }
+
+        if (
+          $customCSSMode == 'always'
+          || !$customCSSMode
+          || $customCSSMode == 'civicrm' && $is_civicrm
+          || $customCSSMode == 'civicrm_no_public' && empty($is_public_civicrm)
+        ) {
+          $customCSSURL = $this->addCacheCode($config->customCSSURL);
+          $this->addStyleUrl($customCSSURL, 99, $region);
+        }
       }
       if (!Civi::settings()->get('disable_core_css')) {
         $this->addStyleFile('civicrm', 'css/civicrm.css', -99, $region);

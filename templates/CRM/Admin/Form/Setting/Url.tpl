@@ -59,6 +59,14 @@
             {$form.customCSSURL.html|crmAddClass:'huge40'}
         </td>
     </tr>
+    <tr class="crm-url-form-block-customCSSMode">
+        <td class="label">
+            {$form.customCSSMode.label} {help id='id-css_mode'}
+        </td>
+        <td>
+            {$form.customCSSMode.html}
+        </td>
+    </tr>
     <tr class="crm-url-form-block-disable_core_css">
         <td class="label">
             {$form.disable_core_css.label} {help id='id-css_url'}
